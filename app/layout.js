@@ -1,5 +1,6 @@
 import './globals.css';
 import localFont from 'next/font/local';
+import Header from './Header.js';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -15,7 +16,7 @@ const geistMono = localFont({
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'Next.js Ecommerce project',
+  title: 'Homepage | Ecommerce Store',
   description: 'Next.js Ecommerce project',
 };
 
@@ -23,7 +24,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <main>{children}</main>
+        <main>
+          <Header />
+          {children}
+        </main>
       </body>
     </html>
   );
