@@ -3,7 +3,14 @@ import sql from '../../database/connect';
 
 export default async function ProductPage({ params }) {
   const { productid } = params;
-  const [product] = await sql` ${productid}`;
+  const [product] = await sql`
+    SELECT
+      *
+    FROM
+      products
+    WHERE
+      id = ${productid}
+  `;
   const [quantity, setQuantity] = useState(1);
 
   const addToCart = () => {

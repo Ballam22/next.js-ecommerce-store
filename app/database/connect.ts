@@ -1,38 +1,28 @@
-import 'server-only';
+import path from 'node:path';
 import { config } from 'dotenv-safe';
 import postgres, { type Sql } from 'postgres';
 
-// Load environment variables
-//config();
+// Manually specify the paths
+config({
+  path: path.resolve(process.cwd(), '.env'),
+  example: path.resolve(process.cwd(), '.env.example'),
+});
 
-// Declare a global variable to store the PostgreSQL client
-declare global {
-  // eslint-disable-next-line no-var
-  var postgresSqlClient: Sql | undefined;
+declare namespace globalThis {
+  let postgresSqlClient: Sql;
 }
 
-// Function to connect to the database (creates a singleton client)
-function connectOneTimeToDatabase(): Sql {
-  // Check if a client already exists in the global scope
-  if (!globalThis.postgresSqlClient) {
-    try {
-      // Create a new PostgreSQL client
-      globalThis.postgresSqlClient = postgres({
-        transform: {
-          ...postgres.camel, // Convert column names to camelCase
-          undefined: null, // Convert undefined values to NULL in the database
-        },
-      });
-    } catch (error) {
-      // Log and rethrow the error if connection fails
-      console.error('Failed to connect to the database:', error);
-      throw error;
-    }
+function connectOneTimeToDatabase() {
+  if (!('postgresSqlClient' in globalThis)) {
+    globalThis.postgresSqlClient = postgres({
+      transform: {
+        ...postgres.camel,
+        undefined: null,
+      },
+    });
   }
 
-  // Return the existing or newly created client
   return globalThis.postgresSqlClient;
 }
 
-// Export the PostgreSQL client
 export const sql = connectOneTimeToDatabase();

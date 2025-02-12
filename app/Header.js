@@ -2,11 +2,12 @@ import Link from 'next/link';
 import React from 'react';
 import styles from './Header.module.scss';
 
-const Header = ({ cartItemCount }) => {
+export default function Header({ cartItemCount }) {
   return (
     <header className={styles.header}>
-      <h1>FitGear - Custom Sportswear Shop</h1>
       <nav>
+        <Link href="/">Home</Link>
+        <Link href="/about">About</Link>
         <Link href="/products" data-test-id="products-link">
           Products
         </Link>
@@ -16,6 +17,4 @@ const Header = ({ cartItemCount }) => {
       </nav>
     </header>
   );
-};
-
-export default Header;
+}

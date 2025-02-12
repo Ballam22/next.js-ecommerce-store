@@ -1,3 +1,7 @@
+export const metadata = {
+  title: 'CartPage',
+  description: 'Next.js Ecommerce project',
+};
 export default function CartPage() {
   // Fetch cart data from cookies
   return (
