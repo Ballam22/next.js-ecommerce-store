@@ -1,28 +1,13 @@
-import path from 'node:path';
-import { config } from 'dotenv-safe';
-import postgres, { type Sql } from 'postgres';
+// app/Database/Connect.ts
+import postgres from 'postgres';
 
-// Manually specify the paths
-config({
-  path: path.resolve(process.cwd(), '.env'),
-  example: path.resolve(process.cwd(), '.env.example'),
+const sql = postgres({
+  host: process.env.PGHOST,
+  port: process.env.PGPORT ? parseInt(process.env.PGPORT, 10) : undefined,
+  database: process.env.PGDATABASE,
+  username: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  ssl: process.env.NODE_ENV === 'production',
 });
 
-declare namespace globalThis {
-  let postgresSqlClient: Sql;
-}
-
-function connectOneTimeToDatabase() {
-  if (!('postgresSqlClient' in globalThis)) {
-    globalThis.postgresSqlClient = postgres({
-      transform: {
-        ...postgres.camel,
-        undefined: null,
-      },
-    });
-  }
-
-  return globalThis.postgresSqlClient;
-}
-
-export const sql = connectOneTimeToDatabase();
+export { sql };

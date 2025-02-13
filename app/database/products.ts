@@ -1,22 +1,22 @@
 import { cache } from 'react';
 import { sql } from '../database/connect';
 
-// Function to create products table
+// Function to create the products table
 export const createProductsTable = cache(async () => {
   await sql`
     CREATE TABLE IF NOT EXISTS products (
       id serial PRIMARY KEY,
       name varchar(255) UNIQUE NOT NULL,
-      price numeric NOT NULL,
-      / / function TO insert products (run createproductstable first)
+      price numeric(10, 2) NOT NULL,
+      image_url varchar(255) NOT NULL
     );
   `;
 });
 
-type Product = {
+export type Product = {
   id: number;
   name: string;
-  image_url: string;
+  imageUrl: string;
   price: number;
 };
 
@@ -24,27 +24,41 @@ type Product = {
 export const insertProducts = cache(async () => {
   await sql`
     INSERT INTO
-      products (id, name, price, image_url)
+      products (name, price, image_url)
     VALUES
       (
-        'FitGear Pro Shirt',
+        'Fitgear Pro Shirt',
         29.99,
         '/public/shirt.jpg'
-      ) (
-        'FlexFit Leggings',
+      ),
+      (
+        'Fitgear FlexFit Leggings',
         49.99,
         '/public/leggings.jpg'
-      ) (
-        'Performance Hoodie',
+      ),
+      (
+        'Fitgear Performance Hoodie',
         59.99,
         '/public/hoodie.jpg'
-      ) (
-        'Training Gloves',
+      ),
+      (
+        'Fitgear Training Gloves',
         19.99,
         '/public/gloves.jpg'
       )
     ON CONFLICT (name) DO NOTHING;
+  `;
+});
 
-    -- Avoid duplicate entries
+// Function to fetch all products
+export const getProducts = cache(async () => {
+  return await sql<Product[]>`
+    SELECT
+      id,
+      name,
+      image_url AS "imageUrl",
+      price::float AS price
+    FROM
+      products;
   `;
 });
