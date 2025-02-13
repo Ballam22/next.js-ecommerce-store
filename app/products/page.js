@@ -6,7 +6,7 @@ const products = [
     id: 'product1',
     name: 'Fitgear pro shirt',
     image: 'public/images/shirt.jpg',
-    price: 999,
+    price: 29.99,
   },
   {
     id: 'product2',
@@ -24,7 +24,7 @@ const products = [
     id: 'product4',
     name: 'Fitgear Training Gloves',
     image: 'public/images/gloves.jpg',
-    price: 29,
+    price: 29.99,
   },
 ];
 
