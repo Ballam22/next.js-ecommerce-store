@@ -16,22 +16,22 @@ const sampleProducts: Record<
 > = {
   product1: {
     name: 'Fitgear pro shirt',
-    price: 999,
+    price: 29.99,
     image_url: '/images/shirt.jpg',
   },
   product2: {
     name: 'Fitgear FlexFit Leggings',
-    price: 199,
+    price: 49.99,
     image_url: '/images/leggings.jpg',
   },
   product3: {
     name: 'Fitgear Performance Hoodie',
-    price: 49,
+    price: 59.99,
     image_url: '/images/hoodie.jpg',
   },
   product4: {
     name: 'Fitgear Training Gloves',
-    price: 29,
+    price: 19.99,
     image_url: '/images/gloves.jpg',
   },
 };
@@ -58,25 +58,6 @@ export default function CartPage() {
   };
 
   // Load the cart when the component mounts and when the custom 'cartUpdated' event fires.
-  useEffect(() => {
-    loadCart();
-    const handleCartUpdate = () => loadCart();
-    window.addEventListener('cartUpdated', handleCartUpdate);
-    return () => window.removeEventListener('cartUpdated', handleCartUpdate);
-  }, []);
-
-  // Calculate the total whenever the cart changes.
-  useEffect(() => {
-    let newTotal = 0;
-    for (const productId in cart) {
-      const item = cart[productId];
-      const price = sampleProducts[productId]?.price || 0;
-      if (item) {
-        newTotal += price * item.quantity;
-      }
-    }
-    setTotal(newTotal);
-  }, [cart]);
 
   // Remove a product from the cart.
   const handleRemove = (productId: string) => {
