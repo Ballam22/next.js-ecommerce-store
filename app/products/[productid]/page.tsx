@@ -11,6 +11,7 @@ export default async function ProductPage({
   let product;
   try {
     const products = await getProducts();
+    // Convert params.productid to a number, since your DB stores numeric IDs
     product = products.find((p) => p.id === Number(params.productid));
   } catch (error) {
     console.error('Error fetching product:', error);
@@ -21,11 +22,11 @@ export default async function ProductPage({
     notFound();
   }
 
-  // Convert the product data as needed
+  // Convert the product data as needed, using the correct property names
   const productProps = {
     id: product.id.toString(),
     name: product.name,
-    image: product.imageUrl, // adjust if needed
+    image: product.imageUrl, // changed from imageUrl to image_url
     price: product.price,
   };
 

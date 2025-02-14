@@ -1,19 +1,28 @@
-// app/layout.js
 import './globals.css';
+// app/layout.js (or layout.tsx)
 import Header from './header';
 
 export const metadata = {
-  title: 'Fitgear Ecommerce',
-  description: 'Your store for fitness gear',
+  title: 'FitGear Ecommerce',
+  description: 'Your home for premium fitness gear.',
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>{/* Additional meta tags can be added here */}</head>
-      <body>
+      <head />
+      <body
+        style={{
+          backgroundImage: "url('/images/athletes.jpg')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          minHeight: '100vh',
+          margin: 0,
+        }}
+      >
         <Header />
-        {children}
+        <main>{children}</main>
       </body>
     </html>
   );

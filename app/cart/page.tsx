@@ -1,6 +1,5 @@
 // app/cart/Page.tsx
 // This file is a Server Component (no "use client" directive here)
-// import { metadata } from '../../metadata'; // Or define metadata here if needed
 import CartClient from './CartClient';
 
 export const metadata = {
@@ -10,6 +9,11 @@ export const metadata = {
 };
 
 export default function CartPage() {
-  // Simply render the interactive client component
-  return <CartClient />;
+  return (
+    <main>
+      <div className="cart-container">
+        <CartClient />
+      </div>
+    </main>
+  );
 }

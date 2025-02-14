@@ -15,24 +15,24 @@ const sampleProducts: Record<
   { name: string; price: number; image_url?: string }
 > = {
   product1: {
-    name: 'Fitgear Treadmill',
+    name: 'Fitgear pro shirt',
     price: 999,
-    image_url: '/images/product1.jpg',
+    image_url: '/images/shirt.jpg',
   },
   product2: {
-    name: 'Fitgear Dumbbells',
+    name: 'Fitgear FlexFit Leggings',
     price: 199,
-    image_url: '/images/product2.jpg',
+    image_url: '/images/leggings.jpg',
   },
   product3: {
-    name: 'Fitgear Yoga Mat',
+    name: 'Fitgear Performance Hoodie',
     price: 49,
-    image_url: '/images/product3.jpg',
+    image_url: '/images/hoodie.jpg',
   },
   product4: {
-    name: 'Fitgear Resistance Bands',
+    name: 'Fitgear Training Gloves',
     price: 29,
-    image_url: '/images/product4.jpg',
+    image_url: '/images/gloves.jpg',
   },
 };
 
@@ -103,7 +103,7 @@ export default function CartPage() {
               style={{
                 marginBottom: '1rem',
                 listStyle: 'none',
-                borderBottom: '1px solid #ccc',
+                borderBottom: '1px solid #cccccc',
                 paddingBottom: '1rem',
               }}
             >

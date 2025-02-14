@@ -29,22 +29,22 @@ export const insertProducts = cache(async () => {
       (
         'Fitgear Pro Shirt',
         29.99,
-        '/public/shirt.jpg'
+        '/images/shirt.jpg'
       ),
       (
         'Fitgear FlexFit Leggings',
         49.99,
-        '/public/leggings.jpg'
+        '/images/leggings.jpg'
       ),
       (
         'Fitgear Performance Hoodie',
         59.99,
-        '/public/hoodie.jpg'
+        '/images/hoodie.jpg'
       ),
       (
         'Fitgear Training Gloves',
         19.99,
-        '/public/gloves.jpg'
+        '/images/gloves.jpg'
       )
     ON CONFLICT (name) DO NOTHING;
   `;

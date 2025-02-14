@@ -1,29 +1,31 @@
-// app/products/Page.js
+import './page.module.css'; // Ensure your CSS module is imported
 import Link from 'next/link';
+import ProductsListingClient from './[productid]/ProductListingClient';
 
+// If you need static products data, you can keep it here or fetch it from your database.
 const products = [
   {
     id: 'product1',
     name: 'Fitgear pro shirt',
-    image: 'public/images/shirt.jpg',
+    image: '/images/shirt.jpg',
     price: 29.99,
   },
   {
     id: 'product2',
-    name: 'Fitgear FlexFit Leggings ',
+    name: 'Fitgear FlexFit Leggings',
     image: '/images/leggings.jpg',
     price: 49.99,
   },
   {
     id: 'product3',
     name: 'Fitgear Performance Hoodie',
-    image: 'public/images/hoodie.jpg',
+    image: '/images/hoodie.jpg',
     price: 59.99,
   },
   {
     id: 'product4',
     name: 'Fitgear Training Gloves',
-    image: 'public/images/gloves.jpg',
+    image: '/images/gloves.jpg',
     price: 29.99,
   },
 ];
@@ -32,35 +34,9 @@ export default function ProductsPage() {
   return (
     <main>
       <h1>Products</h1>
-      <div>
-        {products.map((product) => (
-          <Link
-            key={`product-${product.id}`}
-            href={`/products/${product.id}`}
-            data-test-id={`product-${product.id}`}
-            style={{
-              display: 'block',
-              marginBottom: '1rem',
-              textDecoration: 'none',
-              color: 'inherit',
-            }}
-          >
-            <div style={{ border: '1px solid #ccc', padding: '1rem' }}>
-              <h2>{product.name}</h2>
-              <img
-                src={product.image}
-                alt={product.name}
-                style={{
-                  width: '200px',
-                  display: 'block',
-                  marginBottom: '0.5rem',
-                }}
-              />
-              <p>Price: {product.price}</p>
-            </div>
-          </Link>
-        ))}
-      </div>
+      <Link href="/products">Back to Products</Link>
+      {/* Render the interactive client component */}
+      <ProductsListingClient products={products} />
     </main>
   );
 }
