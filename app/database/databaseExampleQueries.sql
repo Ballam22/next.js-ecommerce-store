@@ -1,12 +1,12 @@
 CREATE TABLE products (
   id serial PRIMARY KEY,
-  name varchar(255) NOT NULL,
+  firs_name varchar(255) NOT NULL,
   price decimal(10, 2) NOT NULL,
   image_url varchar(255) NOT NULL
 );
 
 INSERT INTO
-  products (name, price, image_url)
+  products (id, price, image_url)
 VALUES
   (
     'FitGear Pro Shirt',

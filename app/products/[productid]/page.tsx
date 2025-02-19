@@ -1,5 +1,4 @@
 import { notFound } from 'next/navigation';
-// app/products/[productid]/Page.tsx
 import { getProducts } from '../../database/products';
 import ProductDetailsClient from './ProductDetailsClient';
 
@@ -8,25 +7,28 @@ export default async function ProductPage({
 }: {
   params: { productid: string };
 }) {
+  // Ensure that the params are resolved by wrapping in Promise.resolve
+  const { productid } = await Promise.resolve(params);
+
   let product;
   try {
     const products = await getProducts();
-    // Convert params.productid to a number, since your DB stores numeric IDs
-    product = products.find((p) => p.id === Number(params.productid));
+    // Convert productid (a string) to a number, since our IDs are numeric
+    product = products.find((p) => p.id === Number(productid));
   } catch (error) {
     console.error('Error fetching product:', error);
-    notFound(); // or handle the error as appropriate
+    notFound();
   }
 
   if (!product) {
     notFound();
   }
 
-  // Convert the product data as needed, using the correct property names
+  // Prepare product data to send to the client component
   const productProps = {
     id: product.id.toString(),
     name: product.name,
-    image: product.imageUrl, // changed from imageUrl to image_url
+    image: product.imageUrl, // Ensure this matches your schema
     price: product.price,
   };
 

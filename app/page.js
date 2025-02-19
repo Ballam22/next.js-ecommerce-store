@@ -4,7 +4,15 @@ import styles from './page.module.css';
 
 export default function Home() {
   return (
-    <div className={styles.page}>
+    <div
+      className={styles.page}
+      style={{
+        backgroundImage: "url('/images/athletes.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
       <main className={styles.main}>
         <h1 className={styles.title}>Welcome to FitGear</h1>
         <p className={styles.description}>
@@ -13,11 +21,10 @@ export default function Home() {
         </p>
         <div className={styles.featured}>
           <Image
-            src="/images/athletes.jpg"
+            src="/images/products.jpg"
             alt="Featured FitGear Product"
             width={600}
             height={400}
-            priority
           />
         </div>
         <div className={styles.cta}>
@@ -32,3 +39,4 @@ export default function Home() {
     </div>
   );
 }
+// The Home component is a simple page that displays a welcome message, a description of the site, a featured product image, and a call-to-action button to shop for products. The page also includes a footer with the copyright information.

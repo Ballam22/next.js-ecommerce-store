@@ -1,4 +1,5 @@
 'use client';
+
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getCookie, updateCart } from '../util/cookies';
@@ -58,6 +59,26 @@ export default function CartPage() {
   };
 
   // Load the cart when the component mounts and when the custom 'cartUpdated' event fires.
+  useEffect(() => {
+    loadCart();
+    const handleCartUpdate = () => loadCart();
+    window.addEventListener('cartUpdated', handleCartUpdate);
+    return () => window.removeEventListener('cartUpdated', handleCartUpdate);
+  }, []);
+
+  // Calculate the total whenever the cart changes.
+  useEffect(() => {
+    let newTotal = 0;
+    for (const productId in cart) {
+      const item = cart[productId];
+      if (!item) continue; // Ensure item is defined before using it
+      const price = sampleProducts[productId]
+        ? sampleProducts[productId].price
+        : 0;
+      newTotal += price * item.quantity;
+    }
+    setTotal(newTotal);
+  }, [cart]);
 
   // Remove a product from the cart.
   const handleRemove = (productId: string) => {
@@ -74,40 +95,49 @@ export default function CartPage() {
   return (
     <main>
       <h1>Your Cart</h1>
-      <ul>
-        {Object.entries(cart).map(([productId, item]) => {
-          const product = sampleProducts[productId];
-          return (
-            <li
-              key={`cart-product-${productId}`}
-              data-test-id={`cart-product-${productId}`}
-              style={{
-                marginBottom: '1rem',
-                listStyle: 'none',
-                borderBottom: '1px solid #cccccc',
-                paddingBottom: '1rem',
-              }}
-            >
-              <div>
-                <strong>{product ? product.name : productId}</strong>
-              </div>
-              <div data-test-id={`cart-product-quantity-${productId}`}>
-                {item.quantity}
-              </div>
-              <div>Subtotal: {product ? product.price * item.quantity : 0}</div>
-              <button
-                onClick={() => handleRemove(productId)}
-                data-test-id={`cart-product-remove-${productId}`}
+      {Object.keys(cart).length === 0 ? (
+        <p>Your cart is empty.</p>
+      ) : (
+        <ul>
+          {Object.entries(cart).map(([productId, item]) => {
+            const product = sampleProducts[productId];
+            return (
+              <li
+                key={`cart-product-${productId}`}
+                data-test-id={`cart-product-${productId}`}
+                style={{
+                  marginBottom: '1rem',
+                  listStyle: 'none',
+                  borderBottom: '1px solid #cccccc',
+                  paddingBottom: '1rem',
+                }}
               >
-                Remove
-              </button>
-            </li>
-          );
-        })}
-      </ul>
+                <div>
+                  <strong>{product ? product.name : productId}</strong>
+                </div>
+                <div data-test-id={`cart-product-quantity-${productId}`}>
+                  {item.quantity}
+                </div>
+                <div>
+                  Subtotal:{' '}
+                  {product
+                    ? (product.price * item.quantity).toFixed(2)
+                    : '0.00'}
+                </div>
+                <button
+                  onClick={() => handleRemove(productId)}
+                  data-test-id={`cart-product-remove-${productId}`}
+                >
+                  Remove
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      )}
       <div style={{ marginTop: '1rem' }}>
         <strong>Total: </strong>
-        <span data-test-id="cart-total">{total}</span>
+        <span data-test-id="cart-total">{total.toFixed(2)}</span>
       </div>
       <div style={{ marginTop: '1rem' }}>
         <Link href="/checkout" data-test-id="cart-checkout">
