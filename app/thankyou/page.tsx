@@ -9,10 +9,7 @@ export default function ThankYouPage() {
   return (
     <main style={{ padding: '2rem', textAlign: 'center' }}>
       <h1>Thank you for your order</h1>
-      <p>
-        Your order has been confirmed. We appreciate your business and hope you
-        enjoy your new gear!
-      </p>
+      <p>Your order has been successfully placed. enjoy your new gear!</p>
     </main>
   );
 }

@@ -1,12 +1,9 @@
-// app/util/cookies.js
-
 /**
  * Reads a specific cookie from the browser.
  * @param {string} name - The name of the cookie.
  * @returns {string | undefined} The cookie value if found, otherwise undefined.
  */
 export function getCookie(name) {
-  // Access cookies via document.cookie for client-side code
   const cookieString = document.cookie;
   const cookiesArray = cookieString.split('; ');
   const cookie = cookiesArray.find((row) => row.startsWith(`${name}=`));
@@ -31,7 +28,7 @@ export function getCartCount() {
     const cart = JSON.parse(decodeURIComponent(cartValue));
     return Object.values(cart).reduce(
       (sum, item) => sum + Number(item.quantity || 0),
-      0,
+      0
     );
   } catch (error) {
     console.error('Error parsing cart cookie:', error);
@@ -41,10 +38,12 @@ export function getCartCount() {
 
 /**
  * Updates the cart by adding the specified quantity to the given product.
- * @param {string} productId - The ID of the product.
+ * @param {string | number} productId - The ID of the product.
  * @param {number} quantityToAdd - The quantity to add.
  */
 export function updateCart(productId, quantityToAdd) {
+  const id = productId.toString(); // Convert ID to string
+
   // Retrieve the current cart cookie
   const cookieString = document.cookie
     .split('; ')
@@ -59,10 +58,10 @@ export function updateCart(productId, quantityToAdd) {
   }
 
   // Update the product quantity
-  if (!cart[productId]) {
-    cart[productId] = { quantity: 0 };
+  if (!cart[id]) {
+    cart[id] = { quantity: 0 };
   }
-  cart[productId].quantity += quantityToAdd;
+  cart[id].quantity += quantityToAdd;
 
   // Update the cookie (make sure path is set to '/')
   const encodedCart = encodeURIComponent(JSON.stringify(cart));

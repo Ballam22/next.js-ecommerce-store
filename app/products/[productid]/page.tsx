@@ -7,30 +7,24 @@ export default async function ProductPage({
 }: {
   params: { productid: string };
 }) {
-  // Ensure that the params are resolved by wrapping in Promise.resolve
-  const { productid } = await Promise.resolve(params);
+  // Ensure params.productid is converted correctly to a number
+  const productid = Number(params.productid.replace(/\D/g, '')); // Removes any non-digit characters
 
-  let product;
-  try {
-    const products = await getProducts();
-    // Convert productid (a string) to a number, since our IDs are numeric
-    product = products.find((p) => p.id === Number(productid));
-  } catch (error) {
-    console.error('Error fetching product:', error);
-    notFound();
+  if (isNaN(productid)) {
+    console.error('Invalid product ID:', params.productid);
+    return notFound();
   }
+
+  console.log('Product ID after cleanup:', productid);
+
+  const products = await getProducts();
+  const product = products.find((p) => p.id === productid);
 
   if (!product) {
-    notFound();
+    return notFound();
   }
 
-  // Prepare product data to send to the client component
-  const productProps = {
-    id: product.id.toString(),
-    name: product.name,
-    image: product.imageUrl, // Ensure this matches your schema
-    price: product.price,
-  };
-
-  return <ProductDetailsClient product={productProps} />;
+  return (
+    <ProductDetailsClient product={{ ...product, id: product.id.toString() }} />
+  );
 }

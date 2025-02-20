@@ -8,14 +8,14 @@ export const createProductsTable = cache(async () => {
       id serial PRIMARY KEY,
       name varchar(255) UNIQUE NOT NULL,
       price numeric(10, 2) NOT NULL,
-      image_url varchar(255) NOT NULL
+      imageurl varchar(255) NOT NULL
     );
   `;
 });
 
 export type Product = {
   id: number;
-  name: string;
+  name: string; // use "name" instead of "first_name"
   imageUrl: string;
   price: number;
 };
@@ -24,7 +24,7 @@ export type Product = {
 export const insertProducts = cache(async () => {
   await sql`
     INSERT INTO
-      products (name, price, image_url)
+      products (name, price, imageurl)
     VALUES
       (
         'Fitgear Pro Shirt',
@@ -56,7 +56,7 @@ export const getProducts = cache(async () => {
     SELECT
       id,
       name,
-      image_url AS "imageUrl",
+      imageurl AS "imageUrl",
       price::float AS price
     FROM
       products;

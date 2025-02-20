@@ -5,10 +5,21 @@ import { useState } from 'react';
 import { updateCart } from '../../util/cookies';
 import styles from '../page.module.css';
 
-const ProductsListingClient = ({ products }) => {
+type Product = {
+  id: number;
+  name: string;
+  imageUrl: string;
+  price: number;
+};
+
+type Props = {
+  products: Product[];
+};
+
+export default function ProductsListingClient({ products }: Props) {
   const [cartFeedback, setCartFeedback] = useState('');
 
-  const handleAddToCart = (productId, quantity = 1) => {
+  const handleAddToCart = (productId: number, quantity = 1) => {
     updateCart(productId, quantity);
     setCartFeedback(`Added ${quantity} item(s) of ${productId} to cart.`);
     setTimeout(() => setCartFeedback(''), 2000);
@@ -29,15 +40,18 @@ const ProductsListingClient = ({ products }) => {
           >
             <h2>{product.name}</h2>
             <img
-              src={product.image}
+              src={product.imageUrl} // Fixed naming consistency
               alt={product.name}
               style={{
                 width: '200px',
                 display: 'block',
                 marginBottom: '0.5rem',
               }}
+              data-test-id={`product-image-${product.id}`} // Added test ID for consistency
             />
-            <p>Price: ${product.price}</p>
+            <p data-test-id={`product-price-${product.id}`}>
+              Price: ${product.price}
+            </p>
           </Link>
           <button
             onClick={() => handleAddToCart(product.id)}
@@ -50,6 +64,4 @@ const ProductsListingClient = ({ products }) => {
       ))}
     </div>
   );
-};
-
-export default ProductsListingClient;
+}

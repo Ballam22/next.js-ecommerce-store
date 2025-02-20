@@ -1,12 +1,12 @@
 CREATE TABLE products (
   id serial PRIMARY KEY,
-  firs_name varchar(255) NOT NULL,
+  name varchar(255) NOT NULL,
   price decimal(10, 2) NOT NULL,
-  image_url varchar(255) NOT NULL
+  imageurl varchar(255) NOT NULL
 );
 
 INSERT INTO
-  products (id, price, image_url)
+  products (name, price, imageurl)
 VALUES
   (
     'FitGear Pro Shirt',
@@ -14,17 +14,17 @@ VALUES
     '/images/shirt.jpg'
   ),
   (
-    'Fitgear FlexFit Leggings',
+    'FitGear FlexFit Leggings',
     49.99,
     '/images/leggings.jpg'
   ),
   (
-    'Fitgear Performance Hoodie',
+    'FitGear Performance Hoodie',
     59.99,
     '/images/hoodie.jpg'
   ),
   (
-    'Fitgear Training Gloves',
+    'FitGear Training Gloves',
     19.99,
     '/images/gloves.jpg'
   );

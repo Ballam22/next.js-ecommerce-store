@@ -2,8 +2,13 @@ import './globals.css';
 // app/layout.js (or layout.tsx)
 import Header from './header';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
-  title: 'FitGear Ecommerce',
+  title: {
+    default: 'Homepage | E-Store',
+    Template: '%s | E-Store',
+  },
   description: 'Your home for premium fitness gear.',
 };
 
@@ -13,7 +18,6 @@ export default function RootLayout({ children }) {
       <head />
       <body
         style={{
-          backgroundImage: "url('/images/athletes.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',

@@ -4,7 +4,7 @@ type ProductProps = {
   product: {
     id: string;
     name: string;
-    image: string;
+    imageUrl: string;
     price: number;
   };
 };
@@ -14,7 +14,7 @@ export default function ProductDetailsClient({ product }: ProductProps) {
     <div>
       <h1>{product.name}</h1>
       <img
-        src={product.image}
+        src={product.imageUrl}
         alt={product.name}
         style={{ width: '300px', display: 'block', marginBottom: '1rem' }}
       />
