@@ -30,13 +30,7 @@ const products = [
 export async function up(sql: Sql) {
   await sql`
     INSERT INTO
-      products (
-        name,
-        slug,
-        image,
-        price,
-        description
-      )
+      products (name, image, price,)
     VALUES
       ${sql(
       products.map((product) => [

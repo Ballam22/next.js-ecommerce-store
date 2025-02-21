@@ -5,10 +5,8 @@ export async function up(sql: Sql) {
     CREATE TABLE products (
       id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
       name varchar(150) NOT NULL,
-      slug varchar(150) NOT NULL UNIQUE,
       image varchar NOT NULL,
       price integer NOT NULL,
-      description varchar NOT NULL
     )
   `;
 }
