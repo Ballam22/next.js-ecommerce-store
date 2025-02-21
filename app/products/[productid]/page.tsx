@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getProducts } from '../../database/products';
+import { getProductById } from '../../database/products';
 import ProductDetailsClient from './ProductDetailsClient';
 
 export default async function ProductPage({
@@ -7,22 +7,32 @@ export default async function ProductPage({
 }: {
   params: { productid: string };
 }) {
-  // Ensure params.productid is converted correctly to a number
-  const productid = Number(params.productid.replace(/\D/g, '')); // Removes any non-digit characters
+  console.log('🔍 Raw params:', params);
 
+  // Extract only numeric part of the productid (Fixes "product2" issue)
+  const productid = parseInt((await params).productid.replace(/\D/g, ''), 10);
+
+  // Validate params synchronously
+  if (!productid) {
+    console.error('❌ No product ID in params');
+    return notFound();
+  }
   if (isNaN(productid)) {
-    console.error('Invalid product ID:', params.productid);
+    console.error('❌ Invalid product ID:', productid);
     return notFound();
   }
 
-  console.log('Product ID after cleanup:', productid);
+  console.log('🔍 Fetching product with ID:', productid);
 
-  const products = await getProducts();
-  const product = products.find((p) => p.id === productid);
+  // Fetch product asynchronously
+  const product = await getProductById(productid);
 
   if (!product) {
+    console.error('❌ Product not found:', productid);
     return notFound();
   }
+
+  console.log('✅ Product found:', product);
 
   return (
     <ProductDetailsClient product={{ ...product, id: product.id.toString() }} />

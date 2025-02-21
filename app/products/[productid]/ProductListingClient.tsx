@@ -1,14 +1,16 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { updateCart } from '../../util/cookies';
 import styles from '../page.module.css';
 
 type Product = {
+  Image: string;
   id: number;
   name: string;
-  imageUrl: string;
+  image: string;
   price: number;
 };
 
@@ -24,6 +26,7 @@ export default function ProductsListingClient({ products }: Props) {
     setCartFeedback(`Added ${quantity} item(s) of ${productId} to cart.`);
     setTimeout(() => setCartFeedback(''), 2000);
   };
+  console.log(products);
 
   return (
     <div className={styles.productsGrid}>
@@ -39,8 +42,8 @@ export default function ProductsListingClient({ products }: Props) {
             }}
           >
             <h2>{product.name}</h2>
-            <img
-              src={product.imageUrl} // Fixed naming consistency
+            <Image
+              src={product.image} // Fixed naming consistency
               alt={product.name}
               style={{
                 width: '200px',
@@ -48,6 +51,8 @@ export default function ProductsListingClient({ products }: Props) {
                 marginBottom: '0.5rem',
               }}
               data-test-id={`product-image-${product.id}`} // Added test ID for consistency
+              width={200}
+              height={200}
             />
             <p data-test-id={`product-price-${product.id}`}>
               Price: ${product.price}

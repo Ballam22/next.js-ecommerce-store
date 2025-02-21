@@ -1,26 +1,33 @@
 import { cache } from 'react';
 import { sql } from '../database/connect';
 
-// Function to create the products table
+/**
+ * Creates the products table if it does not exist.
+ */
 export const createProductsTable = cache(async () => {
   await sql`
     CREATE TABLE IF NOT EXISTS products (
       id serial PRIMARY KEY,
       name varchar(255) UNIQUE NOT NULL,
       price numeric(10, 2) NOT NULL,
-      imageurl varchar(255) NOT NULL
+      imageurl varchar(255) NOT NULL -- Use "imageurl" (NO underscore)
     );
   `;
 });
 
+/**
+ * Defines the Product type structure.
+ */
 export type Product = {
   id: number;
-  name: string; // use "name" instead of "first_name"
+  name: string;
   imageUrl: string;
   price: number;
 };
 
-// Function to insert products (Run this manually first)
+/**
+ * Inserts products into the database if they do not already exist.
+ */
 export const insertProducts = cache(async () => {
   await sql`
     INSERT INTO
@@ -50,8 +57,10 @@ export const insertProducts = cache(async () => {
   `;
 });
 
-// Function to fetch all products
-export const getProducts = cache(async () => {
+/**
+ * Fetch all products (used for product listing page).
+ */
+export async function getProducts() {
   return await sql<Product[]>`
     SELECT
       id,
@@ -61,4 +70,26 @@ export const getProducts = cache(async () => {
     FROM
       products;
   `;
-});
+}
+
+/**
+ * Fetch a single product by ID (used for product details page).
+ * @param productid - The ID of the product to fetch.
+ */
+export async function getProductById(productid: number) {
+  const result = await sql<Product[]>`
+    SELECT
+      id,
+      name,
+      imageurl AS "imageUrl",
+      price::float AS price
+    FROM
+      products
+    WHERE
+      id = ${productid}
+    LIMIT
+      1;
+  `;
+
+  return result.length > 0 ? result[0] : null;
+}
