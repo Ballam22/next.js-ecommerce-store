@@ -1,8 +1,10 @@
 // app/header.js
 'use client';
 
+import { ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import styles from './Header.module.scss';
 import { getCartCount } from './util/cookies';
 
 const Header = () => {
@@ -26,14 +28,21 @@ const Header = () => {
   }, []);
 
   return (
-    <header>
+    <header className={styles.header}>
+      {' '}
+      {/* Apply the SCSS class */}
       <nav>
+        <Link href="/" data-test-id="products-link">
+          Home
+        </Link>
+        {' | '}
         <Link href="/products" data-test-id="products-link">
           Products
         </Link>
         {' | '}
         <Link href="/cart" data-test-id="cart-link">
-          Cart (<span data-test-id="cart-count">{cartCount}</span>)
+          <ShoppingCart size={20} /> {/* Cart Icon*/}(
+          <span data-test-id="cart-count">{cartCount}</span>)
         </Link>
       </nav>
     </header>

@@ -47,6 +47,7 @@ export default function ProductsListingClient({ products }: Props) {
               alt={product.name}
               style={{
                 width: '200px',
+                height: '200px',
                 display: 'block',
                 marginBottom: '0.5rem',
               }}

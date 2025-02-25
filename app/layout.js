@@ -1,5 +1,4 @@
 import './globals.css';
-// app/layout.js (or layout.tsx)
 import Header from './header';
 
 export const dynamic = 'force-dynamic';
@@ -15,7 +14,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head />
+      <head>
+        <title>Homepage | E/store</title>
+        <meta
+          name="description"
+          content="Your home for premium fitness gear."
+        />
+      </head>
       <body
         style={{
           backgroundSize: 'cover',

@@ -18,7 +18,7 @@ export default function ProductDetailsClient({ product }: ProductProps) {
         alt={product.name}
         style={{ width: '300px', display: 'block', marginBottom: '1rem' }}
       />
-      <div style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>
+      <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>
         Price: ${product.price}
       </div>
       {/* You can add more interactive UI elements here (e.g., Add to Cart button) */}

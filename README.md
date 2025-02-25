@@ -2,7 +2,7 @@ Title: E-commerce Store
 
 Description: A simple e-commerce store built with Next.js, PostgreSQL, and TypeScript.
 
-Technologies: Next.js, PostgreSQL, TypeScript, Jest, Fly.io.
+Technologies: Next.js, PostgreSQL, TypeScript, Jest, playwrite, Fly.io.
 
 Screenshots: Add screenshots of the products page, cart page, and checkout page.
 

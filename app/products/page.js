@@ -6,7 +6,7 @@ import ProductsListingClient from './[productid]/ProductListingClient';
 const products = [
   {
     id: 'product1',
-    name: 'Fitgear pro shirt',
+    name: 'Fitgear Pro shirt',
     image: '/images/shirt.jpg',
     price: 29.99,
   },

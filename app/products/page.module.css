@@ -3,15 +3,15 @@
 /* Define global CSS variables */
 .root {
   --primary-color: #ff4500; /* Accent color for buttons */
-  --background-color: #000; /* Black background */
+  --background-color: #f7f3f3; /* Black background */
   --text-color: #fff; /* White text */
   --card-border-color: #fff; /* Border for product cards */
-  --card-bg-color: #121212; /* Slightly lighter black for cards */
+  --card-bg-color: #e6dede; /* Slightly lighter black for cards */
 }
 
 /* Local styles for this page */
 .page {
-  background-color: var(--background-color);
+  background-color: hwb(0 84% 11%);
   color: var(--text-color);
   min-height: 100vh;
   padding: 2rem;

@@ -1,24 +1,22 @@
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background-color: #0e0d0d;
-  color: #ffffff;
+// Header.module.scss
 
-  h1 {
-    margin: 0;
-    font-size: 1.5rem;
-  }
+.header {
+  background-color: #858181; // Dark background (optional)
+  color: #020101; // Change this to your desired font color
+  padding: 10px;
+  text-align: center;
 
   nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+
     a {
-      color: #fff;
+      color: #050504; // Make sure links also have the same color
       text-decoration: none;
-      margin-left: 1rem;
 
       &:hover {
-        text-decoration: underline;
+        color: #050504; // Lighter color on hover
       }
     }
   }

@@ -8,9 +8,11 @@ export default function Home() {
       className={styles.page}
       style={{
         backgroundImage: "url('/images/athletes.jpg')",
-        backgroundSize: 'cover',
+        backgroundSize: '100% auto',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
+        width: '100vw',
+        height: '50vh',
       }}
     >
       <main className={styles.main}>
@@ -23,8 +25,8 @@ export default function Home() {
           <Image
             src="/images/products.jpg"
             alt="Featured FitGear Product"
-            width={600}
-            height={400}
+            width={200}
+            height={200}
           />
         </div>
         <div className={styles.cta}>
